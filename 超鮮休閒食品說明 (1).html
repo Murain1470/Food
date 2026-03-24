@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>超鮮休閒食品 — 產品說明</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--green:#2d6a2d;--green2:#3d8b3d;--green3:#e8f5e8;--gold:#b8860b;--gold2:#fff8e7;--red:#c0392b;--blue:#1a5276;--blue2:#eaf4fb;--purple:#6c3483;--purple2:#f4ecf7;--teal:#0e6655;--teal2:#e8f8f5;--bg:#faf9f5;--text:#1a1a1a;--border:#d0c8b0;--radius:16px}
+  body{font-family:'Noto Sans TC','微軟正黑體','PingFang TC',sans-serif;background:var(--bg);color:var(--text);font-size:24px;line-height:1.7;padding:0}
+  .hero{background:linear-gradient(135deg,#1b4d1b 0%,#2d7a2d 50%,#1b4d1b 100%);padding:50px 30px 40px;text-align:center}
+  .hero-icon{font-size:64px;margin-bottom:10px}
+  .hero h1{font-size:46px;font-weight:900;color:#fff;letter-spacing:4px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+  .hero p{font-size:23px;color:rgba(255,255,255,.85);margin-top:10px}
+  .search-wrap{background:#fff;padding:24px 30px;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+  .search-wrap input{width:100%;font-size:26px;font-family:inherit;padding:16px 24px;border:3px solid var(--green2);border-radius:50px;outline:none;background:var(--green3);color:var(--text);transition:all .2s}
+  .search-wrap input:focus{border-color:var(--green);background:#fff;box-shadow:0 0 0 4px rgba(45,106,45,.15)}
+  .search-wrap input::placeholder{color:#888}
+  .tabs{display:flex;flex-wrap:wrap;gap:10px;padding:20px 24px;background:#fff;border-bottom:2px solid var(--border)}
+  .tab{padding:13px 24px;border-radius:50px;font-size:20px;font-weight:700;cursor:pointer;border:2.5px solid #ddd;transition:all .2s;white-space:nowrap;background:#f5f5f5;color:#444}
+  .tab:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+  .tab.active{color:#fff;border-color:transparent}
+  .tab[data-cat="all"].active{background:#2d6a2d}
+  .tab[data-cat="梅子橄欖果乾"].active{background:#2d6a2d}
+  .tab[data-cat="海鮮魚類"].active{background:#1a5276}
+  .tab[data-cat="豆干素食"].active{background:#6c3483}
+  .tab[data-cat="糖果軟糖"].active{background:#b8860b}
+  .tab[data-cat="堅果果仁"].active{background:#7b3f00}
+  .tab[data-cat="蔬菜脆片"].active{background:#0e6655}
+  .tab[data-cat="乳製品其他"].active{background:#922b21}
+  main{padding:24px;max-width:1200px;margin:0 auto}
+  .section-title{display:flex;align-items:center;gap:14px;font-size:32px;font-weight:900;margin:36px 0 18px;padding:18px 28px;border-radius:var(--radius);color:#fff;letter-spacing:2px}
+  .section-title .icon{font-size:36px}
+  .cat-梅子橄欖果乾 .section-title{background:linear-gradient(135deg,#2d6a2d,#4a9a4a)}
+  .cat-海鮮魚類 .section-title{background:linear-gradient(135deg,#1a5276,#2e86c1)}
+  .cat-豆干素食 .section-title{background:linear-gradient(135deg,#6c3483,#9b59b6)}
+  .cat-糖果軟糖 .section-title{background:linear-gradient(135deg,#b8860b,#d4ac0d)}
+  .cat-堅果果仁 .section-title{background:linear-gradient(135deg,#7b3f00,#b85c00)}
+  .cat-蔬菜脆片 .section-title{background:linear-gradient(135deg,#0e6655,#1abc9c)}
+  .cat-乳製品其他 .section-title{background:linear-gradient(135deg,#922b21,#e74c3c)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+  .card{background:#fff;border-radius:var(--radius);border:2px solid var(--border);overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+  .card-head{padding:18px 22px 14px;font-size:26px;font-weight:900;letter-spacing:1px;display:flex;align-items:center;gap:12px}
+  .card-num{font-size:16px;font-weight:700;opacity:.7;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.4);white-space:nowrap}
+  .card-body{padding:16px 22px 22px;font-size:22px;line-height:1.85;color:#2a2a2a}
+  .cat-梅子橄欖果乾 .card-head{background:linear-gradient(90deg,#e8f5e8,#c8e8c8);color:#1b4d1b}
+  .cat-梅子橄欖果乾 .card-body b{color:#2d6a2d}
+  .cat-海鮮魚類 .card-head{background:linear-gradient(90deg,#eaf4fb,#d6eaf8);color:#1a5276}
+  .cat-海鮮魚類 .card-body b{color:#1a5276}
+  .cat-豆干素食 .card-head{background:linear-gradient(90deg,#f4ecf7,#e8d5f5);color:#6c3483}
+  .cat-豆干素食 .card-body b{color:#6c3483}
+  .cat-糖果軟糖 .card-head{background:linear-gradient(90deg,#fff8e7,#fdebd0);color:#8a6500}
+  .cat-糖果軟糖 .card-body b{color:#8a6500}
+  .cat-堅果果仁 .card-head{background:linear-gradient(90deg,#fdf0e0,#fae0c0);color:#7b3f00}
+  .cat-堅果果仁 .card-body b{color:#7b3f00}
+  .cat-蔬菜脆片 .card-head{background:linear-gradient(90deg,#e8f8f5,#d1f2eb);color:#0e6655}
+  .cat-蔬菜脆片 .card-body b{color:#0e6655}
+  .cat-乳製品其他 .card-head{background:linear-gradient(90deg,#fceae9,#fadbd8);color:#922b21}
+  .cat-乳製品其他 .card-body b{color:#922b21}
+  .hidden{display:none!important}
+  .no-result{text-align:center;font-size:28px;color:#888;padding:80px 20px}
+  .font-ctrl{position:fixed;bottom:30px;right:24px;display:flex;flex-direction:column;gap:12px;z-index:200}
+  .font-btn{width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;font-size:30px;font-weight:900;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:all .15s}
+  .font-btn:hover{background:#1b4d1b;transform:scale(1.08)}
+  .font-btn:active{transform:scale(.95)}
+  footer{text-align:center;padding:32px 20px;font-size:18px;color:#888;border-top:2px solid var(--border);margin-top:60px}
+  @media(max-width:600px){.hero h1{font-size:32px}.cards{grid-template-columns:1fr}main{padding:14px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-icon">🌿</div>
+  <h1>超鮮休閒食品</h1>
+  <p>產品說明手冊 — 給爸爸媽媽的健康零食指南</p>
+</div>
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="🔍 輸入品名或功效來搜尋，例如：補血、潤喉、消化…">
+</div>
+<div class="tabs">
+  <div class="tab active" data-cat="all" onclick="filterCat('all',this)">📋 全部</div>
+  <div class="tab" data-cat="梅子橄欖果乾" onclick="filterCat('梅子橄欖果乾',this)">🍑 梅子・橄欖・果乾</div>
+  <div class="tab" data-cat="海鮮魚類" onclick="filterCat('海鮮魚類',this)">🐟 海鮮・魚類</div>
+  <div class="tab" data-cat="豆干素食" onclick="filterCat('豆干素食',this)">🌱 豆干・素食</div>
+  <div class="tab" data-cat="糖果軟糖" onclick="filterCat('糖果軟糖',this)">🍬 糖果・軟糖</div>
+  <div class="tab" data-cat="堅果果仁" onclick="filterCat('堅果果仁',this)">🥜 堅果・果仁</div>
+  <div class="tab" data-cat="蔬菜脆片" onclick="filterCat('蔬菜脆片',this)">🥦 蔬菜・脆片</div>
+  <div class="tab" data-cat="乳製品其他" onclick="filterCat('乳製品其他',this)">🥛 乳製品・其他</div>
+</div>
+<main id="main">
+
+<section class="cat-section cat-梅子橄欖果乾" data-cat="梅子橄欖果乾">
+<div class="section-title"><span class="icon">🍑</span> 梅子・橄欖・果乾類</div>
+<div class="cards">
+<div class="card"><div class="card-head"><span class="card-num">01</span>化核橄欖</div><div class="card-body">橄欖去核醃漬，口感不澀。含豐富<b>鈣質與維生素C</b>，有助<b>消化開胃</b>，嚼感好、<b>不卡牙</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">02</span>薄荷金桔</div><div class="card-body">金桔加薄荷製成，清涼爽口。有助<b>潤喉止咳、提神醒腦</b>，飯後食用可<b>去除口氣</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">03</span>茶香金棗</div><div class="card-body">金棗以茶香調味，含維生素C。能<b>保護喉嚨、幫助消化</b>，口感甘甜帶茶香。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">04</span>紫蘇梅</div><div class="card-body">以紫蘇葉醃漬的梅子，酸甜開胃。含有機酸<b>幫助消化、解膩</b>，同時補充礦物質。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">05</span>茶葉梅</div><div class="card-body">梅子與茶葉一起醃漬，帶淡雅茶香，有<b>消食、解膩、養胃</b>的功效。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">06</span>雪花脆梅</div><div class="card-body">表面裹白色糖霜的脆梅，口感酥脆。酸甜滋味能<b>開胃促消化</b>，解油膩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">09</span>化應子梅</div><div class="card-body">傳統中式蜜餞梅子，甘甜中帶淡鹹。能<b>幫助開胃、促進食慾</b>，含有機酸助消化。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">10</span>香辣橄欖</div><div class="card-body">橄欖加辣椒調味，開胃下飯。含橄欖多酚<b>對心血管有益</b>，適合喜歡微辣的長輩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">11</span>碳燻烏梅</div><div class="card-body">以炭火燻製的烏梅，帶特殊煙燻香氣，有<b>生津止渴、調理腸胃</b>的功效。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">13</span>梅果片</div><div class="card-body">梅子壓製成薄片，攜帶方便。酸甜開胃，有助<b>消化及提神</b>，口感薄脆。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">14</span>大仙李</div><div class="card-body">大顆李子醃漬蜜餞，含豐富有機酸與維生素。能<b>助消化、開胃</b>，果肉飽滿。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">15</span>草莓李</div><div class="card-body">帶草莓風味的醃漬李子，酸甜香氣濃郁，富含<b>維生素C</b>，開胃健脾。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">16</span>台東洛神花</div><div class="card-body">台東產洛神花製成，富含花青素與有機酸。有助<b>降血壓、保護心血管、消除疲勞</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">17</span>糖酥洛神花</div><div class="card-body">洛神花加糖製成酥脆零食，保留<b>花青素與抗氧化功效</b>，口感酥甜。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">19</span>辣芒果</div><div class="card-body">芒果加辣椒調味，酸辣開胃，富含<b>維生素A、C</b>，有助消化及增進食慾。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">21</span>酵素梅</div><div class="card-body">含植物酵素的梅子，能幫助<b>腸胃消化、分解食物</b>，同時具有開胃酸甜口感。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">22</span>無籽冰梅</div><div class="card-body">去籽冰糖醃漬梅子，食用方便。酸甜清爽，有<b>生津止渴、助消化</b>的功效。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">23</span>芭樂乾</div><div class="card-body">新鮮芭樂烘乾而成，保留高量<b>維生素C</b>。有益皮膚健康，口感Q脆，含豐富膳食纖維。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">24</span>芒果乾</div><div class="card-body">新鮮芒果烘製，富含<b>β-胡蘿蔔素、維生素A</b>。有益<b>眼睛保健</b>，香甜軟糯。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">25</span>低糖芒果乾</div><div class="card-body">減少糖分的芒果乾，<b>適合血糖需要控制的長輩</b>，同樣保有芒果香氣與維生素A。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">26</span>鳳梨片</div><div class="card-body">鳳梨烘乾成片，含鳳梨酵素<b>幫助消化蛋白質</b>。酸甜解膩，富含維生素B1與C。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">27</span>番茄乾</div><div class="card-body">番茄烘乾濃縮，含高量<b>茄紅素</b>。有助<b>抗氧化、保護心血管</b>，風味濃郁甘甜。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">28</span>奇異果乾</div><div class="card-body">奇異果乾燥而成，<b>維生素C含量極高</b>，有助<b>提升免疫力、促進腸胃蠕動</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">29</span>水蜜桃乾</div><div class="card-body">水蜜桃乾燥製成，香甜柔軟。含豐富<b>維生素B群</b>，有助<b>緩解疲勞、養顏美容</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">30</span>無籽葡萄乾</div><div class="card-body">無籽葡萄製成，含鐵質、鈣質及多酚。有助<b>補血、強化骨骼</b>，食用方便<b>不卡牙</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">31</span>野生金桔</div><div class="card-body">天然野生金桔製成，皮薄汁多，含豐富維生素C。<b>潤喉止咳</b>，喉嚨不舒服時很適合。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">32</span>鹹味化核橄欖</div><div class="card-body">帶鹹味的去核橄欖，口感鹹香回甘。含鈣質與抗氧化物，<b>開胃解膩</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">33</span>甘草橄欖</div><div class="card-body">以甘草調味的橄欖，甘甜中帶草藥香。有<b>潤喉護胃、幫助消化</b>的傳統功效。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">34</span>化核梅</div><div class="card-body">傳統去核蜜餞梅，口感細緻不澀，酸甜適中，能<b>促進唾液分泌、幫助消化</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">35</span>橄欖片</div><div class="card-body">橄欖切片醃漬，薄脆易入口。含橄欖多酚<b>保護心血管</b>，<b>適合咀嚼力較差的長輩</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">37</span>黃橄欖切片</div><div class="card-body">黃色品種橄欖切片，風味淡雅。含豐富礦物質與有機酸，有助<b>清口助消化</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">39</span>相思桃乾</div><div class="card-body">桃子乾燥醃漬，口感Q彈。含豐富維生素C與膳食纖維，有助<b>腸道健康</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">40</span>綠茶纖姿梅</div><div class="card-body">結合綠茶與梅子，含兒茶素與有機酸，有助<b>提神、抗氧化</b>，清新口感。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">41</span>油切仙橙</div><div class="card-body">特殊工法製作，含橙皮苷，有助<b>降低油脂吸收、清新口氣、幫助消化</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">42</span>南薑片</div><div class="card-body">南薑曬乾切片，含豐富薑辣素，有<b>暖胃驅寒、幫助腸胃消化、改善食慾</b>的功效。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">43</span>陳皮片</div><div class="card-body">老化橘皮製成，含揮發油與橙皮苷。有<b>理氣健胃、化痰止咳、促進消化</b>的傳統功效。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">44</span>鹹檸檬片</div><div class="card-body">鹽漬檸檬切片，含豐富維生素C與有機酸。有助<b>去腥解膩、促進消化</b>，喉嚨不適時含著可緩解。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">47</span>水里奶梅</div><div class="card-body">南投水里產奶梅，奶香甜蜜，果肉細緻。含豐富有機酸<b>幫助消化</b>，<b>口感溫和不刺激</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">48</span>無花果絲</div><div class="card-body">無花果切絲乾燥，含豐富<b>膳食纖維、鈣質與酵素</b>。有助<b>腸道蠕動、降低便秘風險</b>，甜蜜好入口。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">49</span>梅粉仙楂</div><div class="card-body">梅粉與山楂組合，酸甜開胃。山楂有<b>活血消食</b>的傳統功效，<b>幫助消化油膩食物</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">50</span>蔓越莓</div><div class="card-body">含豐富花青素與維生素C，<b>有益尿道健康</b>，能抑制泌尿道細菌附著，<b>是長輩保健聖品</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">51</span>鳳梨條</div><div class="card-body">鳳梨切條烘製，含豐富膳食纖維與鳳梨酵素，<b>幫助消化</b>，酸甜爽口，<b>健胃整腸</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">52</span>鳳梨圈</div><div class="card-body">鳳梨切圈乾燥，保留完整環狀，視覺討喜。功效同鳳梨條，含<b>酵素助消化</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">54</span>鹹葡萄乾</div><div class="card-body">帶鹹味的葡萄乾，口感鹹甜交織，含<b>鐵質補血</b>，鹽分適中，開胃不膩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">55</span>樹梅</div><div class="card-body">楊梅乾燥製成，酸甜濃郁。含豐富維生素C與有機酸，有助<b>開胃、消食、增強免疫力</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">58</span>葡萄乾</div><div class="card-body">天然葡萄乾燥，含鐵質、鈣質與多酚。有<b>補血活血、保護心血管</b>的功效，甜蜜好入口。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">67</span>金桔糖</div><div class="card-body">金桔製成的糖果，含維生素C。有<b>潤喉止咳、提神</b>的功效，甜中帶酸，老少皆宜。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">68</span>柑桔餅</div><div class="card-body">柑橘製成蜜餞餅，含果膠與維生素C，口感軟糯。有<b>幫助消化、潤喉</b>的功效。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">70</span>陳皮梅</div><div class="card-body">陳皮與梅子合製，結合兩者<b>理氣健胃</b>的功效，香氣獨特。有助<b>消食化積、促進腸胃蠕動</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">94</span>薑糖</div><div class="card-body">老薑製成的糖果，含薑辣素，有<b>暖胃驅寒、促進血液循環、緩解手腳冰冷</b>的功效，冬天特別適合。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">101</span>無籽梅肉</div><div class="card-body">去籽純梅肉，口感柔軟細緻，含有機酸<b>幫助消化</b>，食用方便，<b>特別適合牙口不好的長輩</b>。</div></div>
+</div></section>
+
+<section class="cat-section cat-海鮮魚類" data-cat="海鮮魚類">
+<div class="section-title"><span class="icon">🐟</span> 海鮮・魚類零食</div>
+<div class="cards">
+<div class="card"><div class="card-head"><span class="card-num">71</span>鮪魚糖</div><div class="card-body">帶有鮪魚香氣的特色風味糖果，含蛋白質，口感獨特，是特別的休閒零嘴。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">73</span>香蔥櫻花蝦</div><div class="card-body">蔥香與櫻花蝦的組合，含豐富<b>鈣質與蛋白質</b>，口感酥脆。<b>補鈣效果好</b>，適合老年人補充鈣質。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">91</span>芥末果子</div><div class="card-body">帶芥末辣味的零食，刺激感能<b>清醒提神</b>，少量食用可幫助開胃，適合喜歡嗆辣感受的長輩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">98</span>櫻蝦酥魚</div><div class="card-body">酥脆的魚片加上櫻蝦，含豐富<b>蛋白質與鈣質</b>，口感香酥，<b>補充鈣質的美味選擇</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">107</span>魷魚條</div><div class="card-body">魷魚烘製成條，含豐富<b>蛋白質、鋅與牛磺酸</b>。有益<b>視力與心血管</b>，口感Q彈，嚼感好。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">113</span>蜜汁鱈魚切片</div><div class="card-body">鱈魚以蜜汁調味，含<b>高蛋白質與Omega-3脂肪酸</b>。有益<b>心腦血管健康</b>，口感甜嫩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">114</span>麻辣鱈魚切片</div><div class="card-body">鱈魚麻辣口味，含<b>Omega-3脂肪酸</b>，有助<b>降低血脂</b>，麻辣風味開胃，高蛋白低脂。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">116</span>紅化核梅</div><div class="card-body">以紅色外觀為特色的去核梅子，口感細緻，含有機酸<b>幫助消化</b>，開胃解膩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">117</span>蜜汁沙茶魚片</div><div class="card-body">魚片以蜜汁沙茶調味，含豐富<b>蛋白質</b>，沙茶風味獨特，鹹甜適中，<b>補充蛋白質好選擇</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">118</span>古早味大豬公</div><div class="card-body">傳統古早味豬肉零食，含蛋白質，風味濃郁懷舊，<b>讓長輩回味兒時滋味</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">158</span>鹹蛋黃方塊酥</div><div class="card-body">以鹹蛋黃為餡的方塊酥，口感酥脆，鹹蛋黃含豐富<b>卵磷脂</b>，風味濃郁，一口一個剛剛好。</div></div>
+</div></section>
+
+<section class="cat-section cat-豆干素食" data-cat="豆干素食">
+<div class="section-title"><span class="icon">🌱</span> 豆干・素食・辣味類</div>
+<div class="cards">
+<div class="card"><div class="card-head"><span class="card-num">80</span>黃金辣干條</div><div class="card-body">帶辣味的豆乾條，含<b>植物蛋白</b>，有飽足感，辣度適中，搭配喝水或茶食用。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">111</span>黑胡椒素肉干</div><div class="card-body">植物蛋白製成的素肉乾，加入黑胡椒，有<b>促進消化、增加食慾</b>的效果，<b>適合素食長輩</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">112</span>川味辣素肉干</div><div class="card-body">川味辣椒調味的素肉乾，<b>植物蛋白含量高</b>，辣香開胃，適合喜歡重口味的長輩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">119</span>蒜片豆干</div><div class="card-body">大蒜與豆干結合，含植物蛋白，大蒜有<b>殺菌、保護心血管</b>的功效，風味香濃。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">120</span>沙茶豆干</div><div class="card-body">沙茶醬調味的豆干，含<b>植物蛋白與鈣質</b>，沙茶風味濃郁，是傳統台式好滋味。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">122</span>薑沙茶豆干</div><div class="card-body">薑與沙茶調味的豆干，兼具薑的<b>暖胃功效</b>與豆干的高蛋白，<b>適合寒涼體質長輩</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">165</span>蒜香蠶豆</div><div class="card-body">大蒜調味的炸蠶豆，含豐富<b>植物蛋白與膳食纖維</b>，香脆可口，<b>補充蛋白質的好零嘴</b>。</div></div>
+</div></section>
+
+<section class="cat-section cat-糖果軟糖" data-cat="糖果軟糖">
+<div class="section-title"><span class="icon">🍬</span> 糖果・軟糖・餅類</div>
+<div class="cards">
+<div class="card"><div class="card-head"><span class="card-num">76</span>龜苓膏軟糖</div><div class="card-body">龜苓膏風味軟糖，帶有清涼感，有<b>清熱</b>的傳統概念，口感Q彈。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">77</span>娃娃酥</div><div class="card-body">酥脆的小零食，口感輕盈，<b>不太硬，適合牙口較差的長輩</b>，香甜可口。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">78</span>巧克力米果</div><div class="card-body">米果裹上巧克力，結合米香與可可香，口感<b>不太硬、入口即化</b>，老年人也適合。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">79</span>何首烏芝麻糖</div><div class="card-body">何首烏與芝麻製成，傳統上有<b>補腎烏髮、潤腸通便</b>的功效，芝麻含豐富<b>鈣質與維生素E</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">90</span>綜合薑糖</div><div class="card-body">多種口味薑製成的糖，含薑辣素，有<b>暖胃驅寒、止暈止吐、緩解腸胃不適</b>的功效，老人家<b>暖身好幫手</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">130</span>綜合咖啡糖</div><div class="card-body">多種口味的咖啡糖，咖啡因含量低，香甜可口，適合喜歡<b>咖啡香氣</b>的長輩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">131</span>仙楂餅</div><div class="card-body">山楂製成的餅狀零食，山楂有<b>活血消食、助消化</b>的傳統功效，酸甜開胃，<b>飯後食用效果佳</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">150</span>烘焙黑豆</div><div class="card-body">黑豆烘焙而成，含豐富<b>花青素、植物蛋白與鐵質</b>。有助<b>補血、抗氧化、保護心血管</b>，香脆好嚼。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">172</span>柳橙片</div><div class="card-body">柳橙乾燥製成，含豐富<b>維生素C與果膠</b>，有助<b>增強免疫力、促進腸道健康</b>，酸甜清香。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">179</span>圓圓酸軟糖</div><div class="card-body">酸甜口味的軟糖，口感Q彈，酸味能<b>刺激唾液分泌、幫助消化</b>，適合偶爾解饞。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">181</span>小熊軟糖</div><div class="card-body">可愛造型的軟糖，口感Q彈，多種口味，含果汁成分，是<b>讓長輩心情愉快的小零食</b>。</div></div>
+</div></section>
+
+<section class="cat-section cat-堅果果仁" data-cat="堅果果仁">
+<div class="section-title"><span class="icon">🥜</span> 堅果・果仁類</div>
+<div class="cards">
+<div class="card"><div class="card-head"><span class="card-num">83</span>綜合健康果仁</div><div class="card-body">多種堅果混合，含健康脂肪、蛋白質、維生素E。有助<b>心血管保健、防止老年認知退化</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">133</span>紙皮核桃</div><div class="card-body">薄皮核桃，含豐富<b>Omega-3脂肪酸、維生素E與卵磷脂</b>。有助<b>護腦健腦、降低壞膽固醇</b>，是長輩最佳<b>補腦零食</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">157</span>椒麻花生</div><div class="card-body">麻辣調味的花生，含豐富蛋白質與不飽和脂肪酸。花椒有助<b>促進血液循環</b>，口感香麻過癮。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">183</span>相思果</div><div class="card-body">含豐富<b>植物蛋白與礦物質</b>，口感獨特，是少見的特色零食。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">202</span>焦糖葵瓜子</div><div class="card-body">葵花子加焦糖製成，含<b>維生素E、硒與不飽和脂肪酸</b>。有助<b>抗氧化、保護心血管</b>，香甜酥脆。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">206</span>竹鹽葵瓜子</div><div class="card-body">竹鹽調味的葵花子，竹鹽含豐富礦物質，有助<b>鹼化體質</b>，葵花子含<b>維生素E</b>，健康的鹹香零食。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">211</span>原味腰果</div><div class="card-body">天然腰果，含豐富<b>鎂、鋅與不飽和脂肪酸</b>。有助<b>骨骼健康、穩定血糖、增強免疫力</b>，口感香脆。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">212</span>原味核桃</div><div class="card-body">天然核桃，含豐富<b>Omega-3脂肪酸與卵磷脂</b>。有益<b>腦部健康、改善記憶力</b>，是長輩<b>補腦首選</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">213</span>原味杏仁果</div><div class="card-body">天然杏仁，含豐富<b>維生素E、鎂與不飽和脂肪酸</b>。有助<b>降低壞膽固醇、保護心血管</b>，口感香脆。</div></div>
+</div></section>
+
+<section class="cat-section cat-蔬菜脆片" data-cat="蔬菜脆片">
+<div class="section-title"><span class="icon">🥦</span> 蔬菜・特色脆片類</div>
+<div class="cards">
+<div class="card"><div class="card-head"><span class="card-num">81</span>牛蒡筋</div><div class="card-body">牛蒡製成，含豐富<b>膳食纖維與菊糖（益菌生）</b>，有助<b>腸道健康、穩定血糖</b>，口感Q韌。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">82</span>牛蒡辣蹄筋</div><div class="card-body">牛蒡加蹄筋的辣味零食，含<b>膳食纖維與膠原蛋白</b>，有助<b>腸道健康並保護關節</b>，口感有嚼勁。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">85</span>秋葵脆條</div><div class="card-body">秋葵烘烤成脆條，含豐富<b>黏液蛋白與膳食纖維</b>，有助<b>保護胃壁、穩定血糖</b>，口感酥脆。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">86</span>波蘿蜜脆片</div><div class="card-body">波蘿蜜製成脆片，含天然糖分與<b>維生素B群</b>，香甜酥脆，熱量適中。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">87</span>芋頭條</div><div class="card-body">芋頭製成的酥脆條，含鉀、氟等礦物質，有助<b>保護牙齒健康</b>，口感鬆脆，不油膩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">89</span>椰棗</div><div class="card-body">天然椰棗乾，含豐富<b>鐵質、鉀與膳食纖維</b>，有助<b>補血、穩定血壓、改善便秘</b>，甜度高適合代替甜食。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">95</span>八寶豆</div><div class="card-body">多種食材混合的豆類零食，含<b>植物蛋白與膳食纖維</b>，口感豐富，有助補充蛋白質。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">125</span>古早味鋤頭片</div><div class="card-body">傳統古早味鋤頭形脆片，口感酥脆，帶懷舊風味，<b>讓長輩回憶童年美好時光</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">126</span>黑芝麻鱈魚絲</div><div class="card-body">黑芝麻與鱈魚絲結合，黑芝麻含豐富<b>鈣質與維生素E</b>，搭配高蛋白鱈魚，<b>補鈣又補蛋白質</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">152</span>南瓜子</div><div class="card-body">南瓜子含豐富<b>鋅、鎂與不飽和脂肪酸</b>，<b>有益前列腺健康（爸爸適合）</b>、穩定血糖，口感香脆。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">154</span>梨山水蜜桃</div><div class="card-body">梨山高山水蜜桃製成，含豐富<b>維生素C與果膠</b>，甜蜜香濃，<b>高山水果風味清新</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">156</span>泰式辣芒果</div><div class="card-body">泰式辣椒調味的芒果乾，酸辣開胃，富含<b>維生素A</b>，帶有異國風情的特殊口感。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">159</span>柚香檸檬乾</div><div class="card-body">柚子與檸檬製成，含豐富<b>維生素C</b>，有助<b>提升免疫力、美白養顏</b>，清香酸爽。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">167</span>玉井芒果</div><div class="card-body">台南玉井產芒果製成，品質優良，含豐富<b>維生素A、C</b>，香甜濃郁，是<b>台灣之光好滋味</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">169</span>烘焙情人果</div><div class="card-body">情人果（芒果青）烘焙而成，酸脆爽口，含<b>維生素C</b>，有助消化開胃，是<b>台灣傳統好滋味</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">170</span>五香蒟蒻條</div><div class="card-body">五香調味的蒟蒻條，含豐富膳食纖維，<b>幾乎零熱量</b>，有助<b>穩定血糖、促進腸道健康</b>，<b>適合控制體重的長輩</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">191</span>小仙貝</div><div class="card-body">輕薄小巧的米餅，口感酥脆，含米香，<b>不油不膩，適合牙口較弱的長輩</b>隨時享用。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">214</span>薑汁腰果</div><div class="card-body">腰果加入薑汁調味，結合<b>腰果的高鎂、高鋅與薑的暖胃功效</b>，風味獨特，<b>補充礦物質好選擇</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">387</span>香蕉脆片</div><div class="card-body">新鮮香蕉切片烘製，含豐富<b>鉀、維生素B6與膳食纖維</b>。有助<b>穩定血壓、舒緩情緒、幫助睡眠</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">487</span>敏豆脆條</div><div class="card-body">四季豆（敏豆）烘製成脆條，含豐富<b>膳食纖維、維生素K與葉酸</b>，<b>低熱量</b>，有助骨骼健康。</div></div>
+</div></section>
+
+<section class="cat-section cat-乳製品其他" data-cat="乳製品其他">
+<div class="section-title"><span class="icon">🥛</span> 乳製品・其他</div>
+<div class="cards">
+<div class="card"><div class="card-head"><span class="card-num">92</span>羊乳片</div><div class="card-body">羊乳壓製而成，含豐富<b>鈣質與蛋白質</b>，羊乳脂肪球較小<b>更易消化吸收</b>，<b>適合胃腸敏感的長輩</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">93</span>牛乳片</div><div class="card-body">牛乳壓製片狀，含<b>鈣質與蛋白質</b>，入口即化，<b>補充鈣質方便</b>，適合不習慣喝牛奶的長輩。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">123</span>紅心芭樂乾</div><div class="card-body">紅心品種芭樂乾燥，含豐富<b>茄紅素與維生素C</b>，有助<b>抗氧化、保護心血管</b>，風味甜美。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">127</span>綜合葡萄乾</div><div class="card-body">多種葡萄製成，含鐵質、鈣質與多種多酚，有<b>補血、抗氧化</b>的功效，甜度豐富。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">135</span>黃蜜桃乾</div><div class="card-body">黃色品種水蜜桃製成，含豐富<b>維生素C與膳食纖維</b>，香甜柔軟，有助<b>消化排便</b>。</div></div>
+<div class="card"><div class="card-head"><span class="card-num">149</span>宜蘭金棗干</div><div class="card-body">宜蘭特產金棗製成，含豐富<b>維生素C</b>，有<b>潤喉護喉、幫助消化</b>的功效，是宜蘭著名地方特色零食。</div></div>
+</div></section>
+
+<div class="no-result hidden" id="noResult">😕 找不到相關產品，請試試其他關鍵字</div>
+</main>
+
+<footer>🌿 超鮮休閒食品產品說明手冊 ｜ 以上功效僅供參考，不代表醫療建議</footer>
+
+<div class="font-ctrl">
+  <button class="font-btn" onclick="changeFont(2)" title="放大字體">＋</button>
+  <button class="font-btn" onclick="changeFont(-2)" title="縮小字體">－</button>
+</div>
+
+<script>
+let sz=24;
+function changeFont(d){
+  sz=Math.max(16,Math.min(40,sz+d));
+  document.body.style.fontSize=sz+'px';
+  document.querySelectorAll('.card-body').forEach(e=>e.style.fontSize=(sz-2)+'px');
+  document.querySelectorAll('.card-head').forEach(e=>e.style.fontSize=(sz+2)+'px');
+}
+function filterCat(cat,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cat-section').forEach(s=>s.classList.toggle('hidden',cat!=='all'&&s.dataset.cat!==cat));
+  document.getElementById('search').value='';
+  document.getElementById('noResult').classList.add('hidden');
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('hidden'));
+}
+document.getElementById('search').addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  document.querySelectorAll('.cat-section').forEach(s=>s.classList.remove('hidden'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.tab[data-cat="all"]').classList.add('active');
+  if(!q){document.querySelectorAll('.card').forEach(c=>c.classList.remove('hidden'));document.getElementById('noResult').classList.add('hidden');return;}
+  let n=0;
+  document.querySelectorAll('.card').forEach(c=>{const ok=c.textContent.toLowerCase().includes(q);c.classList.toggle('hidden',!ok);if(ok)n++;});
+  document.querySelectorAll('.cat-section').forEach(s=>s.classList.toggle('hidden',s.querySelectorAll('.card:not(.hidden)').length===0));
+  document.getElementById('noResult').classList.toggle('hidden',n>0);
+});
+</script>
+</body>
+</html>
